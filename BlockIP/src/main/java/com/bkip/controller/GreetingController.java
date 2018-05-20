@@ -1,18 +1,13 @@
 package com.bkip.controller;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-import javax.annotation.Resource;
-import javax.servlet.Filter;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.security.web.FilterChainProxy;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bkip.services.CallTest;
 import com.bkip.services.FileReader;
+import com.bkip.services.RbacReader;
+
+
+
 
 @RestController
 public class GreetingController {
@@ -30,6 +29,8 @@ public class GreetingController {
     private final AtomicLong counter = new AtomicLong();
     @Autowired
     private FileReader fileReader;
+    @Autowired
+    private RbacReader rbacReader;
     
     @Autowired
     private CallTest callTest;
@@ -96,5 +97,12 @@ public class GreetingController {
     {
     		return fileReader.readData();
     	}
+    
+    @RequestMapping(value="/rbacGetName")
+    public String rbacGetName() throws IOException
+    {
+    	return  rbacReader.getPName(2);
+    	
+    }
 }
 

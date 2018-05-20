@@ -14,31 +14,38 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 
-@Component("authProvider")
+@Component("herAuthProvider")
 public class HerAuthenticationProvider implements AuthenticationProvider {
 	
 	@Autowired
 	private UserDetailsService herInMemoryUserDetailsManager;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	public HerAuthenticationProvider()
 	{
 		super();
 	}
 	
+	
+	
 	@Override
 	 public Authentication authenticate(final Authentication authentication) throws AuthenticationException {
         final String name = authentication.getName();
         final String password = authentication.getCredentials().toString();
-        String correctpassword = herInMemoryUserDetailsManager.loadUserByUsername(name).getPassword();
+        //substring(8) to split cipher text from {bkrypt}xxxx
+        String correctpassword = herInMemoryUserDetailsManager.loadUserByUsername(name).getPassword().substring(8);
         System.out.println("########################################password stored in DB is : " + correctpassword);
-        
-        if(password.equals(herInMemoryUserDetailsManager.loadUserByUsername(name).getPassword()))
-        		{
-        
-        //if (name.equals("admin") && password.equals("system")) {
+        System.out.println("########################################password present by user is : " + passwordEncoder.encode(password)); 
+        //System.out.println("########################################password present by user chararry is : " + passwordEncoder.encode(password.toCharArray())); 
+
+        /* bypass password verification*/
+        if(passwordEncoder.matches(password, correctpassword))
+        	{
             final List<GrantedAuthority> grantedAuths = new ArrayList<>();
             grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
             final UserDetails principal = new User(name, password, grantedAuths);
@@ -46,9 +53,11 @@ public class HerAuthenticationProvider implements AuthenticationProvider {
             System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!username is: " + name);
             System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!username is: " + password);
             return auth;
+       /*bypass password verification*/     
         } else {
         	throw new BadCredentialsException("Really BadCredential");
         }
+        
     }
 
 	@Override

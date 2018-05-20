@@ -8,6 +8,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.bkip.services.FunBean;
 
@@ -31,6 +33,12 @@ public class AppConfig {
     public static PropertySourcesPlaceholderConfigurer loadProperties() {  
         PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();  
         return configurer;  
+    }
+    
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+    	return new BCryptPasswordEncoder();
+    	
     }
     
 

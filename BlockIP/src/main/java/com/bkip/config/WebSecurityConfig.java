@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
@@ -26,7 +28,10 @@ import com.bkip.authn.HerInMemoryUserDetailsManager;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Autowired
-    private HerAuthenticationProvider authProvider;
+    private HerAuthenticationProvider herAuthProvider;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -55,10 +60,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	//this is for customized authentication provider
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authProvider);
+    	
+        auth.authenticationProvider(herAuthProvider);
     }	
     
-
     
     @Bean
     @Override
@@ -66,11 +71,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         UserDetails user =
              User.withDefaultPasswordEncoder()
                 .username("user")
-                .password("password")
+                .password( "password")
                 .roles("USER")
                 .build();
 
         return new HerInMemoryUserDetailsManager(user);
+        //return new InMemoryUserDetailsManager(user);
     }
     
     

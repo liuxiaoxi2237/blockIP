@@ -11,6 +11,8 @@ public class CallTest {
 	@PreAuthorize("hasRole('USER')")
 	public String sayhello(){
 		return str01;
+		
+		
 	}
 	
 	@PreAuthorize("hasRole('USER')")

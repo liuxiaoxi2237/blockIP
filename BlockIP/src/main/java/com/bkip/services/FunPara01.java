@@ -10,6 +10,7 @@ public class FunPara01 {
 
 	public String getRa01() {
 		return ra01;
+		
 	}
 
 	public void setRa01(String ra01) {

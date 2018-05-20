@@ -20,7 +20,7 @@ public class FileReader {
 	private String path;
 	public StockData stockData = new StockData();
 	ObjectMapper objectMapper = new ObjectMapper();
-	
+	   
 	@PreAuthorize("hasRole('USER')")
 	public String readData() throws IOException{
 	Path p1 = FileSystems.getDefault().getPath(path);

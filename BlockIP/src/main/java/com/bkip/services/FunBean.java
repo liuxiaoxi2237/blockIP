@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 //@Service("fbean01")
 public class FunBean {
 	
+	
 	private String fun01;
 	public String getFun01() {
 		return fun01;
