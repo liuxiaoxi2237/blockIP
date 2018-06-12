@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-//@Service("fbean01")
+
 public class FunBean {
 	
 	

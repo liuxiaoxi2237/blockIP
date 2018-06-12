@@ -1,5 +1,7 @@
 package com.bkip.config;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -12,12 +14,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.bkip.services.FunBean;
+import com.bkip.services.StockData;
 
 @Configuration
 @ComponentScan(basePackages = "rest01.com.lg")
 @PropertySource("classpath:a.properties")
 public class AppConfig {
 	
+
 	@Value("${name}")
 	private String fun01;
 	

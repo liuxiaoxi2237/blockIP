@@ -1,6 +1,10 @@
 package com.bkip.services;
 
+import java.util.HashMap;
+import java.util.List;
+
 public class StockData {
+
 	private String code;
 	private String price;
 	private String netrate;
@@ -22,14 +26,14 @@ public class StockData {
 	public String getNetrate() {
 		return netrate;
 	}
-	public void setNetrate(String netrate) {
-		this.netrate = netrate;
+	public void setNetrate(String i) {
+		this.netrate = i;
 	}
 	public String getChangerate() {
 		return changerate;
 	}
-	public void setChangerate(String changerate) {
-		this.changerate = changerate;
+	public void setChangerate(String d) {
+		this.changerate = d;
 	}
 	public String getRank() {
 		return rank;
@@ -37,5 +41,6 @@ public class StockData {
 	public void setRank(String rank) {
 		this.rank = rank;
 	}
+	
 
 }

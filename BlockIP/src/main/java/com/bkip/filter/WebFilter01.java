@@ -30,6 +30,7 @@ public class WebFilter01 implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 			System.out.println("-------------Run Before WebFilter01-------------");
+
             // Goes to default servlet
 			chain.doFilter(request, response); 
 			System.out.println("-------------Run After WebFilter01-------------");
